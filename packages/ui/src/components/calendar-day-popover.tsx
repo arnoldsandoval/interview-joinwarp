@@ -1,6 +1,7 @@
 "use client";
 import { format, isSameDay } from "date-fns";
 import { X } from "lucide-react";
+import { memo, useMemo } from "react";
 import { Button } from "./button";
 import { useCalendar } from "./calendar-context";
 import { CalendarDayCell } from "./calendar-day-cell";
@@ -15,7 +16,7 @@ interface CalendarDayPopoverProps {
   variant?: "default" | "mini";
 }
 
-export function CalendarDayPopover({
+export const CalendarDayPopover = memo(function CalendarDayPopover({
   day,
   inCurrentMonth,
   isToday,
@@ -27,11 +28,15 @@ export function CalendarDayPopover({
     setSelectedDate,
     getEventsForDay,
     timezone,
-    timezoneAbbr,
   } = useCalendar();
 
   const isSelected = selectedDate ? isSameDay(day, selectedDate) : false;
-  const events = getEventsForDay(day);
+
+  // Only compute events when this day is selected (popover is open)
+  const events = useMemo(() => {
+    if (!isSelected) return [];
+    return getEventsForDay(day);
+  }, [isSelected, getEventsForDay, day]);
 
   const handleOpenChange = (open: boolean) => {
     if (open) {
@@ -85,7 +90,7 @@ export function CalendarDayPopover({
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <h3 className="font-semibold text-foreground text-xl tracking-tight">
-              {format(day, "MMMM d, yyyy")}
+              {format(day, "MMMM d")}
             </h3>
           </div>
           <Button
@@ -108,4 +113,4 @@ export function CalendarDayPopover({
       </PopoverContent>
     </Popover>
   );
-}
+});

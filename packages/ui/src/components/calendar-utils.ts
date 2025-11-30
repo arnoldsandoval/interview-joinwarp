@@ -155,5 +155,5 @@ export function getEventLabel(event: CalendarEvent, timezone: string): string {
     const startOnly = timeStr.split(" - ")[0];
     return `${startOnly} ${name}`;
   }
-  return name;
+  return `${name}`;
 }

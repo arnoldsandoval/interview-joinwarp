@@ -1,6 +1,6 @@
 "use client";
-import { Anniversary, Birthday, TimeOff } from "@repo/icons";
 import type { CalendarEvent } from "@repo/types";
+import { memo } from "react";
 import { cn } from "../lib/utils";
 import { eventColors, formatEventTime } from "./calendar-context";
 import { getEventLabel } from "./calendar-utils";
@@ -12,22 +12,25 @@ interface CalendarEventChipProps {
 
 function EventIcon({ event }: { event: CalendarEvent }) {
   if (event.type === "time-off") {
-    return <TimeOff className="size-3 shrink-0" />;
+    return <span className="text-md mr-1">✈️</span>;
   }
   if (event.type === "birthday") {
-    return <Birthday className="size-3 shrink-0" />;
+    return <span className="text-md mr-1">🎂</span>;
   }
   if (event.type === "anniversary") {
     return (
       <span className="text-[10px] font-semibold leading-none">
-        <Anniversary className="size-3 shrink-0" />
+        <span className="text-md mr-1">🎉</span>
       </span>
     );
   }
   return null;
 }
 
-export function CalendarEventChip({ event, timezone }: CalendarEventChipProps) {
+export const CalendarEventChip = memo(function CalendarEventChip({
+  event,
+  timezone,
+}: CalendarEventChipProps) {
   const colors = eventColors[event.type];
   const isPersonEvent =
     event.type === "time-off" ||
@@ -40,7 +43,7 @@ export function CalendarEventChip({ event, timezone }: CalendarEventChipProps) {
     return (
       <div
         className={cn(
-          "tracking-tight px-2.5 py-1 rounded-full text-xs truncate font-semibold flex items-center gap-1",
+          "tracking-tight px-2.5 py-1 rounded-full text-xs truncate font-semibold flex items-center gap-1 backdrop-blur-xs",
           colors.bg,
           colors.text
         )}
@@ -49,7 +52,7 @@ export function CalendarEventChip({ event, timezone }: CalendarEventChipProps) {
         <span className="truncate">
           {label}{" "}
           {event.type === "anniversary" && event.metadata?.yearsOfService
-            ? `(${event.metadata.yearsOfService})`
+            ? `(${event.metadata.yearsOfService} years)`
             : ""}
         </span>
       </div>
@@ -61,13 +64,13 @@ export function CalendarEventChip({ event, timezone }: CalendarEventChipProps) {
   return (
     <div
       className={cn(
-        "tracking-tight px-2.5 py-1 rounded-full text-xs truncate",
+        "tracking-tight px-2.5 py-1 rounded-full text-xs truncate backdrop-blur-xs",
         colors.bg,
         colors.text
       )}
     >
+      <span className="font-semibold">{event.title}</span>{" "}
       {timeStr && <span>{timeStr} </span>}
-      <span className="font-semibold">{event.title}</span>
     </div>
   );
-}
+});

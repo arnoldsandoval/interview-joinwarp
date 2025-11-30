@@ -1,5 +1,4 @@
 "use client";
-import { Birthday, TimeOff } from "@repo/icons";
 import type { EventType } from "@repo/types";
 import type { CSSProperties } from "react";
 import { cn } from "../lib/utils";
@@ -94,7 +93,7 @@ export function AvatarWithBadge({
               )}
             >
               <Avatar
-                className="size-full border-3 border-muted"
+                className="size-full border-3 border-transparent"
                 style={maskStyle}
               >
                 <AvatarImage src={src} alt={alt} />
@@ -161,13 +160,11 @@ function BadgeContent({
   const colors = eventColors[eventType];
 
   if (eventType === "time-off") {
-    return <TimeOff className={cn("size-3.5", colors.text)} />;
+    return <span className="text-[10px] -ml-0.5 block">✈️</span>;
   }
-
   if (eventType === "birthday") {
-    return <Birthday className={cn("size-3.5", colors.text)} />;
+    return <span className="text-xs">🎂</span>;
   }
-
   if (eventType === "anniversary") {
     return (
       <span className={cn("text-xs font-semibold leading-none", colors.text)}>

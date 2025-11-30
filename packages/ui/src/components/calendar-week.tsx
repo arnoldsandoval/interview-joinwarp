@@ -1,5 +1,6 @@
 "use client";
 import { isSameDay, isSameMonth, isToday } from "date-fns";
+import { memo } from "react";
 import { CalendarDayCell } from "./calendar-day-cell";
 import { CalendarDayPopover } from "./calendar-day-popover";
 import { CalendarEvent } from "./calendar-event";
@@ -16,7 +17,7 @@ interface CalendarWeekProps {
   selectedDate?: Date | null;
 }
 
-export function CalendarWeek({
+export const CalendarWeek = memo(function CalendarWeek({
   week,
   weekIndex,
   currentMonth,
@@ -104,4 +105,4 @@ export function CalendarWeek({
       })}
     </div>
   );
-}
+});

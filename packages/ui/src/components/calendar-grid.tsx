@@ -56,6 +56,12 @@ export function CalendarGrid({
   const daysToUse = isMini && displayMonth ? miniCalendarDays : calendarDays;
   const weeks = useMemo(() => getWeeks(daysToUse), [daysToUse]);
 
+  // Pre-compute week events for all weeks at once (memoized to avoid recalculating on every render)
+  const weekEventsData = useMemo(() => {
+    if (isMini) return null;
+    return weeks.map((week) => getWeekEventsWithOverflow(week, filteredEvents));
+  }, [weeks, filteredEvents, isMini]);
+
   // Handle navigation for mini variant
   const handlePreviousMonth = () => {
     if (isMini && onDisplayMonthChange && displayMonth) {
@@ -132,10 +138,7 @@ export function CalendarGrid({
 
         <div className="flex-1 flex flex-col">
           {weeks.map((week, weekIndex) => {
-            const { visibleEvents, overflowByDay } = getWeekEventsWithOverflow(
-              week,
-              filteredEvents
-            );
+            const { visibleEvents, overflowByDay } = weekEventsData![weekIndex]!;
 
             return (
               <CalendarWeek

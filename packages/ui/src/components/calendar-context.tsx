@@ -126,12 +126,7 @@ export function formatEventTime(
 
   if (event.endDate) {
     const endDate = parseISO(event.endDate);
-    const startPeriod = formatInTimeZone(startDate, timezone, "a");
-    const endPeriod = formatInTimeZone(endDate, timezone, "a");
-    const samePeriod = startPeriod === endPeriod;
-
-    // Only show am/pm on start time if crossing am/pm boundary (e.g., 11:30am-12pm)
-    const startTime = formatTime(startDate, timezone, !samePeriod);
+    const startTime = formatTime(startDate, timezone, true);
     const endTime = formatTime(endDate, timezone, true);
     return `${startTime} - ${endTime}`;
   }

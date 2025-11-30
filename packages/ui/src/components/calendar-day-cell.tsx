@@ -1,5 +1,6 @@
 "use client";
 import { format } from "date-fns";
+import { memo } from "react";
 import { cn } from "../lib/utils";
 
 interface CalendarDayCellProps {
@@ -12,7 +13,7 @@ interface CalendarDayCellProps {
   isSelected?: boolean;
 }
 
-export function CalendarDayCell({
+export const CalendarDayCell = memo(function CalendarDayCell({
   day,
   inCurrentMonth,
   isToday,
@@ -64,4 +65,4 @@ export function CalendarDayCell({
       </div>
     </div>
   );
-}
+});

@@ -1,5 +1,6 @@
 "use client";
 import type { CalendarEvent as CalendarEventType } from "@repo/types";
+import { memo } from "react";
 import { useCalendar } from "./calendar-context";
 import { CalendarEventChip } from "./calendar-event-chip";
 import { cn } from "../lib/utils";
@@ -46,7 +47,7 @@ const spanWidthClasses = [
   "w-[calc(100%-12px)]",
 ] as const;
 
-export function CalendarEvent({
+export const CalendarEvent = memo(function CalendarEvent({
   event,
   startCol,
   span,
@@ -74,4 +75,4 @@ export function CalendarEvent({
       <CalendarEventChip event={event} timezone={timezone} />
     </div>
   );
-}
+});
