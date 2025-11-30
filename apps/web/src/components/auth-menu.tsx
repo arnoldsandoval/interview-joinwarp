@@ -78,9 +78,18 @@ export function AuthMenu({ user }: AuthMenuProps) {
           GitHub repository
           <ExternalLink className="ml-auto" />
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          render={
+            <a
+              href="https://screen.studio/share/p46uyrOK"
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+          }
+        >
           <Video />
-          Demo video
+          Design notes (video)
+          <ExternalLink className="ml-auto" />
         </DropdownMenuItem>
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>

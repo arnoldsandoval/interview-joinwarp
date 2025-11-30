@@ -2,7 +2,13 @@
 
 This is the monorepo for the Warp Calendar/Design Engineering exercise.
 
-> **Note:** For design decisions and implementation details, see [DESIGN_NOTES.md](./DESIGN_NOTES.md).
+## Design notes
+
+I took the liberty of recording a video to show my exercise and talk through specifics. This is normally how I share progress and solicit feedback while working remotely.
+
+https://screen.studio/share/p46uyrOK
+
+> **Note:** For written design decisions and implementation details, see [DESIGN_NOTES.md](./DESIGN_NOTES.md).
 
 ## Project Structure
 
