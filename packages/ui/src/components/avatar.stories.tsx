@@ -142,7 +142,7 @@ export const Group: Story = {
       </Avatar>
       <Avatar>
         <AvatarImage src="https://github.com/arnoldsandoval.png" alt="Warp" />
-        <AvatarFallback>DO</AvatarFallback>
+        <AvatarFallback>AS</AvatarFallback>
       </Avatar>
     </div>
   ),

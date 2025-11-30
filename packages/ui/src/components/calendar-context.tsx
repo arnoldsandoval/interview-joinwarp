@@ -17,6 +17,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -184,13 +185,18 @@ export function CalendarProvider({ events, children }: CalendarProviderProps) {
     () => new Set(ALL_EVENT_TYPES)
   );
   const [timezonePreference, setTimezonePreference] = useState("system");
+  // Use a stable default timezone for SSR, then update to local timezone on client
+  const [localTimezone, setLocalTimezone] = useState("America/Los_Angeles");
+
+  useEffect(() => {
+    // Only runs on client after hydration
+    setLocalTimezone(getLocalTimezone());
+  }, []);
 
   const timezone = useMemo(
     () =>
-      timezonePreference === "system"
-        ? getLocalTimezone()
-        : timezonePreference,
-    [timezonePreference]
+      timezonePreference === "system" ? localTimezone : timezonePreference,
+    [timezonePreference, localTimezone]
   );
   const timezoneAbbr = useMemo(
     () => getTimezoneAbbreviation(timezone),
